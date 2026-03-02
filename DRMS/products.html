@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>DRMS — ThinkPad Shop</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+  </head>
+  <body class="thinkpad-shell">
+    <header class="site-header">
+      <nav class="navbar" role="navigation" aria-label="Hauptnavigation">
+        <div class="nav-inner tp-container">
+          <a class="logo tp-brand" href="index.html">DRMS<span class="red-dot"></span></a>
+          <div>
+            <a class="nav-toggle" href="index.html">Zurück</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="tp-container">
+      <div class="tp-header">
+        <div>
+          <h1 style="margin:0">ThinkPad Marktplatz</h1>
+          <p style="margin:6px 0 0;color:var(--muted)">Produkte aus eBay — automatisch geladen. (Demo)</p>
+        </div>
+        <div>
+          <label for="search">Suche:</label>
+          <input id="search" placeholder="z. B. ThinkPad X1" style="padding:8px;border-radius:6px;border:1px solid #222;background:#0b0b0b;color:#fff">
+          <button id="doSearch" style="padding:8px 10px;margin-left:6px;border-radius:6px;background:#ff0000;color:#fff;border:0">Suchen</button>
+        </div>
+      </div>
+
+      <div id="products" class="product-grid" aria-live="polite"></div>
+
+      <!-- optional scraper lookup -->
+      <section id="detail" style="margin-top:40px">
+        <h2>Artikeldetails per ID</h2>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <input id="itemId" placeholder="eBay Artikel-ID" style="padding:8px;border-radius:6px;border:1px solid #222;background:#0b0b0b;color:#fff">
+          <button id="loadDetail" style="padding:8px 10px;border-radius:6px;background:#1b1b1b;color:#fff;border:0">Laden</button>
+        </div>
+        <pre id="detailOutput" style="margin-top:16px;background:#111;padding:12px;border-radius:8px;color:#ddd;white-space:pre-wrap"></pre>
+      </section>
+    </main>
+    
+    <script src="src/js/ebay.js" defer></script>
+    <script>
+      // optional fetch to /api/scrape if a Node server is running
+      document.addEventListener('DOMContentLoaded', ()=>{
+        const btn = document.getElementById('loadDetail');
+        const out = document.getElementById('detailOutput');
+        const input = document.getElementById('itemId');
+        if(btn){
+          btn.addEventListener('click', async ()=>{
+            const id = input.value.trim();
+            if(!id) return;
+            out.textContent = 'Lade...';
+            try{
+              const resp = await fetch(`/api/scrape?id=${encodeURIComponent(id)}`);
+              if(!resp.ok) throw new Error(resp.statusText);
+              const data = await resp.json();
+              out.textContent = JSON.stringify(data,null,2);
+            }catch(e){
+              out.textContent = 'Fehler: '+e.message;
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

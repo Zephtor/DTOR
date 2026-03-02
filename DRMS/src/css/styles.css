@@ -1,0 +1,74 @@
+:root{
+  --bg:#0f1724;
+  --nav-bg: linear-gradient(90deg,#0ea5a4, #7c3aed);
+  --glass: rgba(255,255,255,0.06);
+  --accent:#7c3aed;
+  --muted: #cbd5e1;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#071126 0%, #071728 100%);color:var(--muted)}
+
+.site-header{backdrop-filter: blur(6px);}
+.navbar{width:100%;position:sticky;top:0;z-index:60;background:var(--glass);border-bottom:1px solid rgba(255,255,255,0.03);border-radius: 60px;}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;gap:16px}
+.logo{font-weight:700;color:white;font-size:1.1rem;text-decoration:none}
+.logo .accent{color:var(--accent);margin-left:4px}
+
+.nav-links{list-style:none;display:flex;gap:18px;align-items:center;margin:0;padding:0}
+.nav-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;display:inline-block;transition:all .18s ease}
+.nav-links a:hover{background:rgba(255,255,255,0.03);color:#fff;transform:translateY(-2px)}
+.nav-links .cta a{background:var(--nav-bg);color:#fff;padding:8px 14px;border-radius:999px;box-shadow:0 6px 18px rgba(124,58,237,0.18)}
+
+.nav-toggle{display:none;background:transparent;border:0;color:var(--muted);padding:8px;border-radius:8px}
+.nav-toggle:focus{outline:2px solid rgba(124,58,237,0.25)}
+.nav-toggle .icon{display:block}
+
+.hero{max-width:1100px;margin:60px auto;padding:40px 20px}
+.hero h1{color:#fff;margin:0 0 6px;font-size:2rem}
+
+/* Mobile styles */
+@media (max-width:800px){
+  .nav-toggle{display:inline-flex}
+  .nav-links{position:fixed;right:-100%;top:0;height:100vh;width:260px;flex-direction:column;gap:8px;padding:60px 18px;background:linear-gradient(180deg,rgba(12,16,26,0.96),rgba(8,10,16,0.98));box-shadow:-10px 0 30px rgba(2,6,23,0.6);transition:right .28s cubic-bezier(.2,.9,.2,1)}
+  .nav-links li{width:100%}
+  .nav-links a{width:100%;display:block;padding:12px 14px}
+  .nav-links.open{right:0}
+  .nav-links .cta a{border-radius:8px;text-align:center}
+}
+
+/* Desktop touch fallback */
+@media (min-width:801px){
+  .nav-links{padding-left:8px}
+}
+
+/* small visual niceties */
+a{cursor:pointer}
+
+/* ThinkPad theme adjustments for product listings */
+.thinkpad-shell{background:#0b0b0b;color:#e6e6e6;min-height:100vh;padding-bottom:60px}
+.tp-container{max-width:1100px;margin:28px auto;padding:20px}
+.tp-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tp-brand{font-weight:800;font-size:1.2rem;color:#fff}
+.tp-brand .red-dot{display:inline-block;width:10px;height:10px;background:#ff0000;border-radius:50%;margin-left:8px;box-shadow:0 0 8px rgba(255,0,0,0.12)}
+
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;margin-top:20px}
+.product{background:linear-gradient(180deg,#0f0f10,#0b0b0b);border:1px solid rgba(255,255,255,0.04);padding:12px;border-radius:8px;display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:transform .15s ease}
+.product:hover{transform:scale(1.03)}
+.product img{width:100%;height:150px;object-fit:contain;background:#0b0b0b;border-radius:6px}
+.product .title{font-size:0.95rem;color:#fff;height:40px;overflow:hidden}
+.product .price{font-weight:700;color:#ff0000}
+.product .meta{font-size:0.85rem;color:var(--muted)}
+.product a.link{display:inline-block;margin-top:auto;padding:8px 10px;background:#1b1b1b;border-radius:6px;color:#e6e6e6;text-decoration:none;text-align:center}
+
+/* small screens tweak */
+@media (max-width:520px){
+  .product img{height:120px}
+}
+
+/* modal overlay */
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:120;visibility:hidden;opacity:0;transition:opacity .25s ease}
+.modal.show{visibility:visible;opacity:1}
+.modal-content{background:#1a1a1a;color:#ddd;padding:24px;border-radius:8px;max-width:90%;max-height:90%;overflow:auto;position:relative}
+.modal-close{position:absolute;top:12px;right:12px;background:transparent;border:none;color:#fff;font-size:1.5rem;cursor:pointer}
+.modal-body img{max-width:100%;margin:6px 0;display:block}
+

@@ -1,0 +1,17 @@
+{
+  "name": "drms-ebay-scraper",
+  "version": "1.0.0",
+  "description": "Simple Node script to scrape eBay product pages by item ID",
+  "main": "scrape.js",
+  "bin": {
+    "drms-ebay-scrape": "scrape.js"
+  },
+  "scripts": {
+    "start": "node scrape.js"
+  },
+  "dependencies": {
+    "axios": "^1.0.0",
+    "cheerio": "^1.0.0-rc.12",
+    "express": "^4.22.1"
+  }
+}
